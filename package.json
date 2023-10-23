@@ -1,5 +1,5 @@
 {
-  "name": "image-filter-generator",
+  "name": "filtered-image-generator",
   "version": "0.1.0",
   "description": "Apply filters and save the image.",
   "main": "dist/index.js",
