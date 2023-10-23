@@ -2,7 +2,7 @@
 type OutputType="png";
 
 interface RendererBaseOptionsBase{
-  canvas?:HTMLCanvasElement;
+  canvas:HTMLCanvasElement;
   outputType:OutputType
 }
 
@@ -20,21 +20,34 @@ export type RendererBaseOptions=RendererBaseOptionsAnimation|RendererBaseOptions
 
 
 export abstract class RendererBase{
-  canvas:HTMLCanvasElement;
   options:RendererBaseOptions;
-  setupPromise: Promise<void>;
+  canvas:HTMLCanvasElement;
+  time:number;
   constructor(options:RendererBaseOptions){
     this.options=options;
-    this.canvas = options.canvas || document.createElement("canvas");
-    this.setupPromise=this.setupAsync();
+    this.canvas = options.canvas;
+    this.time=0;
   }
 
-  async setupAsync():Promise<void>{
-
+  stepTime(isLoop:boolean):boolean{
+    if(!this.options.isAnimation){
+      return false;
+    }
+    const {fps}=this.options;
+    this.time += 1/fps;
+    if(this.options.duration<=this.time){
+      if(isLoop){
+        this.time-=this.options.duration;
+        return true;
+      }
+      return false;
+    }
+    return true;
   }
 
-  async makeDataURLAsync(): Promise<string> {
-    await this.setupPromise;
+  abstract render(): void;
+
+  makeDataURL(): string {
 
     const { options } = this;
 
@@ -53,5 +66,5 @@ export abstract class RendererBase{
 
 }
 
-export type CreateRenderer=()=>RendererBase;
+export type CreateRenderer=(canvas:HTMLCanvasElement)=>RendererBase;
 
