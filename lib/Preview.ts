@@ -1,4 +1,4 @@
-import { RendererBaseOptions, CreateRenderer } from "./RendererBase";
+import { CreateRenderer } from "./RendererBase";
 
 export interface PreviewOptions{
   createRenderer: CreateRenderer;

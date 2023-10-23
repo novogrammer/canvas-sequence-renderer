@@ -1,17 +1,30 @@
 {
   "name": "filtered-image-generator",
-  "version": "0.1.0",
-  "description": "Apply filters and save the image.",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "scripts": {
-    "build": "tsc",
-    "prepare": "npm run build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "files": [
+    "/dist",
+    "/types"
+  ],
+  "main": "./dist/index.umd.cjs",
+  "module": "./dist/index.js",
+  "types": "./types/lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types":"./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.umd.cjs"
+    }
   },
-  "author": "Yusuke Kawamoto <novogrammer@gmail.com> (https://github.com/novogrammer/)",
-  "license": "ISC",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build && rollup -c",
+    "preview": "vite preview"
+  },
   "devDependencies": {
-    "typescript": "^5.2.2"
+    "rollup-plugin-dts": "^6.1.0",
+    "typescript": "^5.0.2",
+    "vite": "^4.4.5"
   }
 }
