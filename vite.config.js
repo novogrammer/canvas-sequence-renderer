@@ -19,7 +19,7 @@ export default defineConfig({
       treeshake:false,
       output: {
         preserveModules:true,
-        preserveModulesRoot:'src',
+        preserveModulesRoot:'lib',
         sourcemapExcludeSources:true,
       },
     },

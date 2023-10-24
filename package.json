@@ -18,9 +18,11 @@
     }
   },
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build && rollup -c",
-    "preview": "vite preview"
+    "dev": "npm run demo-dev",
+    "demo-dev": "vite demo",
+    "demo-build": "vite build demo",
+    "demo-preview": "vite preview demo",
+    "build": "tsc && vite build && rollup -c"
   },
   "devDependencies": {
     "lil-gui": "^0.18.2",
