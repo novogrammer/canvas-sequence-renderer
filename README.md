@@ -1,16 +1,16 @@
-# Filtered Image Generator
+# Canvas Sequence Renderer
 
 Under construction...
 
 
-demo https://novogrammer.github.io/filtered-image-generator/
+demo https://novogrammer.github.io/canvas-sequence-renderer/
 
 
 
 ## Install
 
 ```bash
-npm install novogrammer/filtered-image-generator
+npm install novogrammer/canvas-sequence-renderer
 ```
 
 

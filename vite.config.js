@@ -11,7 +11,7 @@ export default defineConfig({
       formats:['es','cjs'],
       // Could also be a dictionary or array of multiple entry points
       entry: resolve(__dirname, 'lib/index.ts'),
-      name: 'filtered-image-generator',
+      name: 'canvas-sequence-renderer',
       // the proper extensions will be added
       fileName: '[name]',
     },
