@@ -8,10 +8,13 @@ interface GeneratorOptions{
 
 export class Generator{
   options:GeneratorOptions;
+  createRenderer:CreateRenderer;
+
   preview?:Preview;
 
   constructor(options:GeneratorOptions){
     this.options=options;
+    this.createRenderer=options.createRenderer;
     if(options.previewCanvas){
       this.preview=new Preview({
         createRenderer:options.createRenderer,
@@ -19,6 +22,12 @@ export class Generator{
       });
     }
 
+  }
+  setCreateRenderer(createRenderer:CreateRenderer){
+    this.createRenderer=createRenderer;
+    if(this.preview){
+      this.preview.setCreateRenderer(createRenderer);
+    }
   }
   downloadDataURL(dataURL:string,filename:string){
     const a=document.createElement("a");

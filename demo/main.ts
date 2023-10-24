@@ -22,13 +22,14 @@ async function mainAsync(){
   const resources={
     kawamotoTexture,
   };
-
+  
+  let fps=60;
   
   const createRendererSimple=(canvas:HTMLCanvasElement)=>{
     return new RendererSimple({
       // isAnimation:false,
       isAnimation:true,
-      fps:60,
+      fps,
       duration:2,
       outputType:"png",
       canvas,
@@ -38,6 +39,16 @@ async function mainAsync(){
     previewCanvas: previewCanvasElement,
     createRenderer:createRendererSimple,
   });
+
+  // setInterval(()=>{
+  //   if(Math.random()<0.5){
+  //     fps=60;
+  //   }else{
+  //     fps=2;
+  //   }
+  //   generator.setCreateRenderer(createRendererSimple);
+  // },2000);
+
 
   generateElement.addEventListener("click",()=>{
     generator.execute("download");

@@ -8,28 +8,33 @@ export interface PreviewOptions{
 export class Preview{
   options:PreviewOptions;
   intervalId:number;
-  currentCreateRenderer?:CreateRenderer;
-  currentRenderer?:RendererBase;
+  createRenderer:CreateRenderer;
+  renderer?:RendererBase;
   constructor(options:PreviewOptions){
     this.options=options;
     this.intervalId=0;
-    this.reset(this.options.createRenderer);
+    this.createRenderer=this.options.createRenderer;
+    this.reset();
   }
-  reset(createRenderer: CreateRenderer){
+
+  setCreateRenderer(createRenderer: CreateRenderer){
+    this.createRenderer=createRenderer;
+    this.reset();
+  }
+  reset(){
     if(this.intervalId){
       clearInterval(this.intervalId);
       this.intervalId=0;
     }
-    this.currentCreateRenderer=createRenderer;
-    const renderer=createRenderer(this.options.canvas);
-    this.currentRenderer=renderer;
+    const renderer=this.createRenderer(this.options.canvas);
+    this.renderer=renderer;
 
-    if(this.currentRenderer.options.isAnimation){
-      const {fps}=this.currentRenderer.options;
+    if(renderer.options.isAnimation){
+      const {fps}=renderer.options;
+      renderer.render();
       this.intervalId=setInterval(()=>{
-        renderer.render();
         renderer.stepTime(true);
-
+        renderer.render();
       },1/fps*1000);
 
     }else{
