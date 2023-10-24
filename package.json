@@ -25,10 +25,8 @@
     "build": "tsc && vite build && rollup -c"
   },
   "devDependencies": {
-    "lil-gui": "^0.18.2",
     "pixi.js": "^7.3.2",
     "rollup-plugin-dts": "^6.1.0",
-    "stats-gl": "^1.0.5",
     "typescript": "^5.0.2",
     "vite": "^4.4.5"
   },
