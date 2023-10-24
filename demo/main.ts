@@ -7,10 +7,15 @@ import { Generator } from "../lib/Generator";
 
 async function mainAsync(){
 
-  const previewCanvas= document.querySelector<HTMLCanvasElement>("#previewCanvas");
-  if(!previewCanvas){
-    throw new Error("previewCanvas is null");
+  const previewCanvasElement = document.querySelector<HTMLCanvasElement>("#previewCanvas");
+  if(!previewCanvasElement){
+    throw new Error("previewCanvasElement is null");
   }
+  const generateElement = document.querySelector("#generate");
+  if(!generateElement){
+    throw new Error("generateElement is null");
+  }
+
 
 
   const kawamotoTexture = await PIXI.Assets.load<PIXI.Texture>(kawamotoImage);
@@ -21,6 +26,7 @@ async function mainAsync(){
   
   const createRendererSimple=(canvas:HTMLCanvasElement)=>{
     return new RendererSimple({
+      // isAnimation:false,
       isAnimation:true,
       fps:60,
       duration:2,
@@ -29,10 +35,13 @@ async function mainAsync(){
     },resources);
   }
   const generator=new Generator({
-    previewCanvas,
+    previewCanvas: previewCanvasElement,
     createRenderer:createRendererSimple,
   });
-  console.log(generator);
+
+  generateElement.addEventListener("click",()=>{
+    generator.execute("download");
+  })
 }
 
 mainAsync().catch((error)=>{

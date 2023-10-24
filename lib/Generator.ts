@@ -1,28 +1,69 @@
 import { Preview } from "./Preview";
 import { CreateRenderer } from "./RendererBase";
-
+import JSZip from "jszip";
 interface GeneratorOptions{
-  previewCanvas:HTMLCanvasElement;
   createRenderer:CreateRenderer;
+  previewCanvas?:HTMLCanvasElement;
 }
 
 export class Generator{
   options:GeneratorOptions;
-  preview:Preview;
+  preview?:Preview;
 
   constructor(options:GeneratorOptions){
     this.options=options;
-    this.preview=new Preview({
-      createRenderer:options.createRenderer,
-      canvas:options.previewCanvas,
-    });
+    if(options.previewCanvas){
+      this.preview=new Preview({
+        createRenderer:options.createRenderer,
+        canvas:options.previewCanvas,
+      });
+    }
 
   }
+  downloadDataURL(dataURL:string,filename:string){
+    const a=document.createElement("a");
+    a.href=dataURL;
+    a.download=filename;
+    a.click();
+  }
+  execute(basename:string){
+    const {createRenderer}=this.options;
+    const canvasElement=document.createElement("canvas");
+    const renderer=createRenderer(canvasElement);
+    const ext="."+renderer.options.outputType;
+    if(!renderer.options.isAnimation){
+      renderer.render();
+      const imageDataURL=renderer.makeDataURL();
+      this.downloadDataURL(imageDataURL,basename+ext);
+    }else{
+      const zip=new JSZip();
+      const folder=zip.folder(basename);
+      if(!folder){
+        throw new Error("folder is null");
+      }
+      const {fps,duration}=renderer.options;
+      const frameCount=Math.max(duration*fps,1);
+      const len=frameCount.toString().length;
+      const zeroPadding=(n:number)=>{
+        return ("0".repeat(len) + n).slice(len * -1);
+      };
+      let i=0;
+      do{
+        renderer.render();
+        const imageDataURL=renderer.makeDataURL();
+        const imageBase64=imageDataURL.replace(/^.+base64,/,"");
+        folder.file(basename+zeroPadding(i)+ext,imageBase64,{base64:true});
+        i+=1;
+      }while(renderer.stepTime(false));
+      zip.generateAsync({type:"base64"}).then((base64)=>{
+        const zipDataURL="data:application/zip;base64," + base64;
+        this.downloadDataURL(zipDataURL,basename+".zip");
 
-  // async executeAsync(){
+      }).catch((error)=>{
+        console.error(error);
+      });
 
-  //   const {createRenderer}=this.options;
-  //   const renderer=createRenderer();
+    }
 
-  // }
+  }
 }

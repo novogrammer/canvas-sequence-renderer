@@ -18,7 +18,7 @@
     }
   },
   "scripts": {
-    "prepare":"npm run build",
+    "prepare": "npm run build",
     "dev": "npm run demo-dev",
     "demo-dev": "vite demo",
     "demo-build": "vite build demo",
@@ -32,5 +32,8 @@
     "stats-gl": "^1.0.5",
     "typescript": "^5.0.2",
     "vite": "^4.4.5"
+  },
+  "dependencies": {
+    "jszip": "^3.10.1"
   }
 }
