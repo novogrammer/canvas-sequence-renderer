@@ -35,7 +35,8 @@ export abstract class RendererBase{
     }
     const {fps}=this.options;
     this.time += 1/fps;
-    if(this.options.duration<=this.time+Number.EPSILON){
+    const epsilon=0.001;
+    if(this.options.duration<=this.time+epsilon){
       if(isLoop){
         this.time-=this.options.duration;
         return true;
