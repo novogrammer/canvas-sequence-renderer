@@ -22,11 +22,13 @@
     "demo-dev": "vite demo",
     "demo-build": "vite build demo",
     "demo-preview": "vite preview demo",
+    "doc": "typedoc ./lib/index.ts --out ./gh-pages/docs",
     "build": "tsc && vite build && rollup -c"
   },
   "devDependencies": {
     "pixi.js": "^7.3.2",
     "rollup-plugin-dts": "^6.1.0",
+    "typedoc": "^0.25.2",
     "typescript": "^5.0.2",
     "vite": "^4.4.5"
   },

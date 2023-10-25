@@ -39,13 +39,15 @@ jobs:
         run: npm install
       - name: Build
         run: npm run demo-build
+      - name: Doc
+        run: npm run doc
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          # demo/dist リポジトリのアップロード
-          path: './demo/dist'
+          # gh-pages のアップロード
+          path: './gh-pages'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
