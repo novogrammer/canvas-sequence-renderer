@@ -1,7 +1,7 @@
 import { Preview } from "./Preview";
 import { CreateRenderer } from "./RendererBase";
 import JSZip from "jszip";
-interface GeneratorOptions{
+export interface GeneratorOptions{
   createRenderer:CreateRenderer;
   previewCanvas?:HTMLCanvasElement;
 }

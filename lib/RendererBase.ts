@@ -6,12 +6,12 @@ interface RendererBaseOptionsBase{
   outputType:OutputType
 }
 
-interface RendererBaseOptionsAnimation extends RendererBaseOptionsBase{
+export interface RendererBaseOptionsAnimation extends RendererBaseOptionsBase{
   isAnimation:true;
   fps:number;
   duration:number;
 }
-interface RendererBaseOptionsNoAnimation extends RendererBaseOptionsBase{
+export interface RendererBaseOptionsNoAnimation extends RendererBaseOptionsBase{
   isAnimation:false;
 }
 
