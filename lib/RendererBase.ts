@@ -24,6 +24,29 @@ export abstract class RendererBase{
   canvas:HTMLCanvasElement;
   time:number;
   constructor(options:RendererBaseOptions){
+    if(!options){
+      throw new Error("options is null");
+    }
+    if(!options.canvas){
+      throw new Error("options.canvas is null");
+    }
+    if(!options.outputType){
+      throw new Error("options.outputType is null");
+    }
+    if(options.isAnimation){
+      if(!options.fps){
+        throw new Error("options.fps is null");
+      }
+      if(!options.duration){
+        throw new Error("options.duration is null");
+      }
+    }else{
+      // DO NOTHING
+    }
+    if(!this.render){
+      throw new Error("this.render is null");
+    }
+
     this.options=options;
     this.canvas = options.canvas;
     this.time=0;

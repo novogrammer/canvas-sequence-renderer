@@ -13,6 +13,12 @@ export class Generator{
   preview?:Preview;
 
   constructor(options:GeneratorOptions){
+    if(!options){
+      throw new Error("options is null");
+    }
+    if(!options.createRenderer){
+      throw new Error("options.createRenderer is null");
+    }
     this.options=options;
     this.createRenderer=options.createRenderer;
     if(options.previewCanvas){
@@ -24,6 +30,9 @@ export class Generator{
 
   }
   setCreateRenderer(createRenderer:CreateRenderer){
+    if(!createRenderer){
+      throw new Error("createRenderer is null");
+    }
     this.createRenderer=createRenderer;
     if(this.preview){
       this.preview.setCreateRenderer(createRenderer);

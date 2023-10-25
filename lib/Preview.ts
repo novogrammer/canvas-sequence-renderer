@@ -11,6 +11,16 @@ export class Preview{
   createRenderer:CreateRenderer;
   renderer?:RendererBase;
   constructor(options:PreviewOptions){
+    if(!options){
+      throw new Error("options is null");
+    }
+    if(!options.createRenderer){
+      throw new Error("options.createRenderer is null");
+    }
+    if(!options.canvas){
+      throw new Error("options.canvas is null");
+    }
+
     this.options=options;
     this.intervalId=0;
     this.createRenderer=this.options.createRenderer;
@@ -18,6 +28,9 @@ export class Preview{
   }
 
   setCreateRenderer(createRenderer: CreateRenderer){
+    if(!createRenderer){
+      throw new Error("createRenderer is null");
+    }
     this.createRenderer=createRenderer;
     this.reset();
   }
