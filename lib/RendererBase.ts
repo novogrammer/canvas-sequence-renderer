@@ -36,15 +36,16 @@ export abstract class RendererBase{
     const {fps}=this.options;
     this.time += 1/fps;
     const epsilon=0.001;
-    if(this.options.duration<=this.time+epsilon){
-      if(isLoop){
-        this.time-=this.options.duration;
-        return true;
-      }
-      return false;
+    const isLastFrame=this.options.duration<=this.time+epsilon;
+    if(!isLastFrame){
+      return true;
     }
-    return true;
-  }
+    if(isLoop){
+      this.time-=this.options.duration;
+      return true;
+    }
+    return false;
+}
 
   abstract render(): void;
 
@@ -52,14 +53,14 @@ export abstract class RendererBase{
 
     const { options } = this;
 
-    let type = "";
-    switch (options.outputType) {
-      case "png":
-        type = "image/png";
-        break;
-      default:
-        throw new Error(`unknown type options: ${options}`);
-    }
+    let type = (()=>{
+      switch (options.outputType) {
+        case "png":
+          return "image/png";
+        default:
+          throw new Error(`unknown outputType: ${options.outputType}`);
+      }
+    })();
 
     const { canvas } = this;
     return canvas.toDataURL(type);

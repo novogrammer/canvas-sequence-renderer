@@ -29,18 +29,17 @@ export class Preview{
     const renderer=this.createRenderer(this.options.canvas);
     this.renderer=renderer;
 
-    if(renderer.options.isAnimation){
-      const {fps}=renderer.options;
+    if(!renderer.options.isAnimation){
       renderer.render();
-      this.intervalId=setInterval(()=>{
-        renderer.stepTime(true);
-        renderer.render();
-      },1/fps*1000);
-
-    }else{
-      renderer.render();
+      return;
     }
-    
+    const {fps}=renderer.options;
+    renderer.render();
+    this.intervalId=setInterval(()=>{
+      renderer.stepTime(true);
+      renderer.render();
+    },1/fps*1000);
+  
   }
 }
 
