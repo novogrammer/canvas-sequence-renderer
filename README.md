@@ -1,10 +1,8 @@
 # Canvas Sequence Renderer
 
-Under construction...
-
-
 demo https://novogrammer.github.io/canvas-sequence-renderer/
 
+docs https://novogrammer.github.io/canvas-sequence-renderer/docs/
 
 
 ## Install
